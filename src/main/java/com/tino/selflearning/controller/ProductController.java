@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/api/products")
 @AllArgsConstructor
 public class ProductController {
 
@@ -26,7 +26,7 @@ public class ProductController {
   }
 
   @GetMapping("/{id}")
-  public ProductDto find(@PathVariable(name = "id") Long id) {
+  public ProductDto find(@PathVariable(name = "id") Long id) throws Exception {
     return productService.find(id);
   }
 

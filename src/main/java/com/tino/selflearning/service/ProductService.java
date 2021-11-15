@@ -1,6 +1,7 @@
 package com.tino.selflearning.service;
 
 import com.tino.selflearning.dto.ProductDto;
+import com.tino.selflearning.exception.RecordNotFoundException;
 import com.tino.selflearning.mapper.ProductMapper;
 import com.tino.selflearning.repository.ProductRepository;
 import java.util.List;
@@ -18,7 +19,7 @@ public class ProductService {
     return repository.findAll(mapper::mapToDto);
   }
 
-  public ProductDto find(Long id) {
+  public ProductDto find(Long id) throws Exception {
     return repository.findById(id, mapper::mapToDto);
   }
 

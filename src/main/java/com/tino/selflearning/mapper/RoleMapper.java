@@ -1,6 +1,6 @@
 package com.tino.selflearning.mapper;
 
-import com.tino.selflearning.dto.UserDto;
+import com.tino.selflearning.dto.RoleDto;
 import org.mapstruct.CollectionMappingStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
@@ -11,12 +11,11 @@ import org.mapstruct.ReportingPolicy;
     unmappedTargetPolicy = ReportingPolicy.IGNORE,
     nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
     nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
-    componentModel = "spring",
-    uses = {RoleMapper.class}
+    componentModel = "spring"
 )
-public interface UserMapper {
+public interface RoleMapper {
 
-  UserDto mapToDto(com.tino.selflearning.entity.User entity);
+  RoleDto mapToDto(com.tino.selflearning.entity.Role entity);
 
-  com.tino.selflearning.entity.User mapToEntity(UserDto dto);
+  com.tino.selflearning.entity.Role mapToEntity(RoleDto dto);
 }

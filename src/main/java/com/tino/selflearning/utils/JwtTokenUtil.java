@@ -20,6 +20,7 @@ public class JwtTokenUtil {
   @Value("${jwt.secret:tino1703}")
   private String jwtSecret;
   private final String jwtIssuer = "example.io";
+  private final int ttl = 24 * 60 * 60 * 1000; // 1 day
 
 
   public String generateAccessToken(User user) {
@@ -27,7 +28,7 @@ public class JwtTokenUtil {
         .setSubject(String.format("%s,%s", user.getId(), user.getUsername()))
         .setIssuer(jwtIssuer)
         .setIssuedAt(new Date())
-        .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week
+        .setExpiration(new Date(System.currentTimeMillis() + ttl))
         .signWith(SignatureAlgorithm.HS512, jwtSecret)
         .compact();
   }

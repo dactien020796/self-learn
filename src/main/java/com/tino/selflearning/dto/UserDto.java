@@ -1,5 +1,6 @@
 package com.tino.selflearning.dto;
 
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,5 +12,6 @@ public class UserDto {
   private String fullName;
   private String username;
   private String password;
+  private Set<RoleDto> roles;
 
 }

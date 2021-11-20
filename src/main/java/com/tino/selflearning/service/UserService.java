@@ -1,10 +1,12 @@
 package com.tino.selflearning.service;
 
 import com.tino.selflearning.dto.UserDto;
+import com.tino.selflearning.entity.Role;
 import com.tino.selflearning.entity.User;
 import com.tino.selflearning.mapper.UserMapper;
 import com.tino.selflearning.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import java.util.List;
+import javax.persistence.EntityExistsException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,9 +33,21 @@ public class UserService implements UserDetailsService {
     });
   }
 
-  public UserDto create(UserDto userDto) {
+  public List<UserDto> getUsers() {
+    return userRepository.findAll(mapper::mapToDto);
+  }
+
+  public UserDto register(UserDto userDto) {
+    if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
+      throw new EntityExistsException(String.format("User with username %s already exist", userDto.getUsername()));
+    }
     User user = mapper.mapToEntity(userDto);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     return userRepository.save(user, mapper::mapToDto);
+  }
+
+  public void updateRole(User user, Role role) {
+    user.getRoles().add(role);
+    userRepository.save(user);
   }
 }

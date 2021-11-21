@@ -1,5 +1,6 @@
 package com.tino.selflearning.utils;
 
+import com.tino.selflearning.entity.Role;
 import com.tino.selflearning.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -9,6 +10,8 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import java.util.Date;
+import java.util.stream.Collectors;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,11 +24,16 @@ public class JwtTokenUtil {
   private String jwtSecret;
   private final String jwtIssuer = "example.io";
   private final int ttl = 24 * 60 * 60 * 1000; // 1 day
+  private static final String AUTHORITIES_KEY = "roles";
+  private static final String USERNAME_KEY = "username";
 
 
   public String generateAccessToken(User user) {
+    String roles = user.getRoles().stream().map(Role::getName).collect(Collectors.joining(","));
     return Jwts.builder()
         .setSubject(String.format("%s,%s", user.getId(), user.getUsername()))
+        .claim(AUTHORITIES_KEY, roles)
+        .claim(USERNAME_KEY, user.getUsername())
         .setIssuer(jwtIssuer)
         .setIssuedAt(new Date())
         .setExpiration(new Date(System.currentTimeMillis() + ttl))
@@ -49,6 +57,14 @@ public class JwtTokenUtil {
         .getBody();
 
     return claims.getSubject().split(",")[1];
+  }
+
+  public String getClaim(String token, String key) {
+    Claims claims = Jwts.parser()
+            .setSigningKey(jwtSecret)
+            .parseClaimsJws(token)
+            .getBody();
+    return claims.get(key).toString();
   }
 
   public Date getExpirationDate(String token) {

@@ -27,6 +27,9 @@ public class Role extends AuditingEntity implements GrantedAuthority {
   @Column
   private String description;
 
+  @Column
+  private Boolean isSystem;
+
   @ManyToMany(mappedBy = "roles")
   private Set<User> users;
 

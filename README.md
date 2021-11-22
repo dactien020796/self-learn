@@ -1,1 +1,3 @@
-# self-learn
+# self-learn project
+
+docker run -p 6379:6379 -d redis

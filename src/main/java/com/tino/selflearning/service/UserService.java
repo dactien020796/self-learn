@@ -5,6 +5,7 @@ import com.tino.selflearning.entity.Role;
 import com.tino.selflearning.entity.User;
 import com.tino.selflearning.mapper.UserMapper;
 import com.tino.selflearning.repository.UserRepository;
+import com.tino.selflearning.utils.JwtTokenUtil;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import org.springframework.context.annotation.Lazy;
@@ -19,11 +20,16 @@ public class UserService implements UserDetailsService {
   private final UserRepository userRepository;
   private final UserMapper mapper;
   private final PasswordEncoder passwordEncoder;
+  private final CachingService cachingService;
+  private final JwtTokenUtil jwtTokenUtil;
 
-  public UserService(UserRepository userRepository, UserMapper mapper, @Lazy PasswordEncoder passwordEncoder) {
+  public UserService(UserRepository userRepository, UserMapper mapper,
+                    @Lazy PasswordEncoder passwordEncoder, CachingService cachingService, JwtTokenUtil jwtTokenUtil) {
     this.userRepository = userRepository;
     this.mapper = mapper;
     this.passwordEncoder = passwordEncoder;
+    this.cachingService = cachingService;
+    this.jwtTokenUtil = jwtTokenUtil;
   }
 
   @Override
@@ -49,5 +55,10 @@ public class UserService implements UserDetailsService {
   public void updateRole(User user, Role role) {
     user.getRoles().add(role);
     userRepository.save(user);
+  }
+
+  public void logout(String jwt) {
+    String username = jwtTokenUtil.getClaim(jwt, "username");;
+    cachingService.blacklistJwt(username, jwt);
   }
 }

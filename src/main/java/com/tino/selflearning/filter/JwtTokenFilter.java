@@ -1,6 +1,7 @@
 package com.tino.selflearning.filter;
 
 import com.tino.selflearning.entity.User;
+import com.tino.selflearning.service.CachingService;
 import com.tino.selflearning.service.UserService;
 import com.tino.selflearning.utils.JwtTokenUtil;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
   private final UserService userService;
   private final JwtTokenUtil jwtTokenUtil;
+  private final CachingService cachingService;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -44,8 +46,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
       return;
     }
 
-    // Get user identity and set it on the spring security context
+    // Check if jwt is in blacklist or not
     String username = jwtTokenUtil.getClaim(token, "username");
+    if (cachingService.getValue(CachingService.BLACKLIST_JWT, username).isPresent()) {
+      chain.doFilter(request, response);
+      return;
+    }
+
+    // Get user identity and set it on the spring security context
     if (StringUtils.isNoneBlank(username) && SecurityContextHolder.getContext().getAuthentication() == null) {
       // TODO: the database hit is optional. You could also encode the user’s username and roles inside JWT claims
       //  and create the UserDetails object by parsing those claims from the JWT. That would avoid the database hit.

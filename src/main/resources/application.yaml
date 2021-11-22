@@ -15,6 +15,11 @@ spring:
     schemas: db_example
     user: root
     password: root
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 86400000 # 1 day
 
 jwt:
   secret: tino1703

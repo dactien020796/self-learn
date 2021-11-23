@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/db_example
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flyway:
+    enabled: true
+    baseline-on-migrate: false
+    url: jdbc:mysql://localhost:3306
+    schemas: db_example
+    user: root
+    password: root
+  cache:
+    type: redis
+    redis:
+      cache-null-values: false
+      time-to-live: 86400000 # 1 day
+
+jwt:
+  secret: tino1703

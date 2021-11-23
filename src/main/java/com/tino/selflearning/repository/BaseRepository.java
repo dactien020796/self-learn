@@ -5,14 +5,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface BaseRepository<T, Id> extends JpaRepository<T, Id> {
 
-  default <DTO> List<DTO> findAll(Function<T, DTO> mapper) {
-    return findAll().stream()
+  default <DTO> List<DTO> findAll(Pageable page, Function<T, DTO> mapper) {
+    return findAll(page).stream()
         .map(mapper)
         .collect(Collectors.toList());
   }

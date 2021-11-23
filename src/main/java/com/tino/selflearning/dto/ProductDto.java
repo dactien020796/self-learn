@@ -1,6 +1,5 @@
 package com.tino.selflearning.dto;
 
-import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,7 +15,7 @@ public class ProductDto {
 
   private Long id;
   private String name;
-  private Instant createdDate;
-  private Instant modifiedDate;
+  private String createdDate;
+  private String modifiedDate;
 
 }

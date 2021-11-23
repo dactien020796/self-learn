@@ -1,0 +1,10 @@
+insert into product(id, name, created_date, modified_date) value (1, 'product_1','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (2, 'product_2','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (3, 'product_3','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (4, 'product_4','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (5, 'product_5','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (6, 'product_6','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (7, 'product_7','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (8, 'product_8','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (9, 'product_9','2021-11-19 14:38:56', '2021-11-19 14:38:56');
+insert into product(id, name, created_date, modified_date) value (10, 'product_10','2021-11-19 14:38:56', '2021-11-19 14:38:56');

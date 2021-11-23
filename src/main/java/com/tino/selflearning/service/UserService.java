@@ -9,6 +9,7 @@ import com.tino.selflearning.utils.JwtTokenUtil;
 import java.util.List;
 import javax.persistence.EntityExistsException;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -39,8 +40,8 @@ public class UserService implements UserDetailsService {
     });
   }
 
-  public List<UserDto> getUsers() {
-    return userRepository.findAll(mapper::mapToDto);
+  public List<UserDto> getUsers(Pageable page) {
+    return userRepository.findAll(page, mapper::mapToDto);
   }
 
   public UserDto register(UserDto userDto) {

@@ -2,6 +2,7 @@ package com.tino.selflearning.controller;
 
 import com.tino.selflearning.dto.UserDto;
 import com.tino.selflearning.service.UserService;
+import com.tino.selflearning.utils.RestUtil;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -24,8 +25,9 @@ public class UserController {
   @PreAuthorize("hasRole('ADMIN')")
   @GetMapping
   public List<UserDto> getAll(@RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "5") int size) {
-    Pageable pageable = PageRequest.of(page, size);
+                              @RequestParam(defaultValue = "5") int size,
+                              @RequestParam(defaultValue = "id:desc") String sort) {
+    Pageable pageable = PageRequest.of(page, size, RestUtil.buildSortOption(sort));
     return userService.getUsers(pageable);
   }
 

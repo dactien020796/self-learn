@@ -3,7 +3,6 @@ package com.tino.selflearning.controller;
 import com.tino.selflearning.dto.UserDto;
 import com.tino.selflearning.service.UserService;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

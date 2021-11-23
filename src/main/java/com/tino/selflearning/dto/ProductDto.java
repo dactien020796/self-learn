@@ -1,7 +1,6 @@
 package com.tino.selflearning.dto;
 
 import java.time.Instant;
-import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

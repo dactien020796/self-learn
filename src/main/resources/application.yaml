@@ -1,14 +1,14 @@
-#datasource:
-#  url: jdbc:mysql://mysql-server-tienle0207.mysql.database.azure.com:3306
-#  schema: db_example
-#  username: dactien020796@mysql-server-tienle0207
-#  password: Tino1703
-
 datasource:
-  url: jdbc:mysql://localhost:3306
+  url: jdbc:mysql://mysql-server-tienle0207.mysql.database.azure.com:3306
   schema: db_example
-  username: root
-  password: root
+  username: dactien020796@mysql-server-tienle0207
+  password: Tino1703
+
+#datasource:
+#  url: jdbc:mysql://localhost:3306
+#  schema: db_example
+#  username: root
+#  password: root
 
 spring:
   datasource:
@@ -33,9 +33,9 @@ spring:
       cache-null-values: false
       time-to-live: 86400000 # 1 day
   redis:
-    host: localhost
-#    host: dactien020796.redis.cache.windows.net
-#    password: WJVGHUnTIdZ2rVC3rPBDAnH0iKYzcwSMBAzCaD9hWSs=
+#    host: localhost
+    host: dactien020796.redis.cache.windows.net
+    password: WJVGHUnTIdZ2rVC3rPBDAnH0iKYzcwSMBAzCaD9hWSs=
 
 jwt:
   secret: tino1703

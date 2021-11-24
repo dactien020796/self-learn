@@ -3,10 +3,10 @@ package com.tino.selflearning.service;
 import com.tino.selflearning.dto.RoleDto;
 import com.tino.selflearning.entity.Role;
 import com.tino.selflearning.entity.User;
-import com.tino.selflearning.exception.RecordNotFoundException;
 import com.tino.selflearning.mapper.RoleMapper;
 import com.tino.selflearning.repository.RoleRepository;
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,13 +26,13 @@ public class RoleService {
     return repository.save(entity, mapper::mapToDto);
   }
 
-  public Role getRoleByName(String roleName)throws RecordNotFoundException {
+  public Role getRoleByName(String roleName) {
     return repository.findByName(roleName).orElseThrow(() -> {
-      throw new RecordNotFoundException(String.format("Role with name %s not exist", roleName));
+      throw new EntityNotFoundException(String.format("Role with name %s not exist", roleName));
     });
   }
 
-  public void addRoleToUser(String username, String roleName) throws RecordNotFoundException {
+  public void addRoleToUser(String username, String roleName) {
     User user = userService.loadUserByUsername(username);
     Role role = this.getRoleByName(roleName);
     userService.updateRole(user, role);

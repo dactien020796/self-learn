@@ -2,7 +2,6 @@ package com.tino.selflearning.controller;
 
 import com.tino.selflearning.dto.AddRoleToUserRequest;
 import com.tino.selflearning.dto.RoleDto;
-import com.tino.selflearning.exception.RecordNotFoundException;
 import com.tino.selflearning.service.RoleService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +22,7 @@ public class RoleController {
   }
 
   @PostMapping("/addToUser")
-  public void addRoleToUser(@RequestBody AddRoleToUserRequest request)
-      throws RecordNotFoundException {
+  public void addRoleToUser(@RequestBody AddRoleToUserRequest request) {
     roleService.addRoleToUser(request.getUsername(), request.getRole());
   }
 }

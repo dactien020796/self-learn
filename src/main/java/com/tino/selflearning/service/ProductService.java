@@ -19,7 +19,7 @@ public class ProductService {
     return repository.findAll(page, mapper::mapToDto);
   }
 
-  public ProductDto find(Long id) throws Exception {
+  public ProductDto find(Long id) {
     return repository.findById(id, mapper::mapToDto);
   }
 

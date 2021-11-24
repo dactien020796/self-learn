@@ -4,15 +4,10 @@ package com.tino.selflearning.controller;
 import com.tino.selflearning.dto.ProductDto;
 import com.tino.selflearning.service.ProductService;
 import com.tino.selflearning.utils.RestUtil;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +33,7 @@ public class ProductController {
   }
 
   @GetMapping("/{id}")
-  public ProductDto find(@PathVariable(name = "id") Long id) throws Exception {
+  public ProductDto find(@PathVariable(name = "id") Long id) {
     return productService.find(id);
   }
 

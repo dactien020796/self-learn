@@ -1,4 +1,5 @@
 # self-learn project
+A project that use cloud-native solution to improve my technical
 
 # Install redis cache
 `docker run -p 6379:6379 -d redis`

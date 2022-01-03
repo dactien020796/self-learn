@@ -1,7 +1,7 @@
 package com.tino.selflearning.filter;
 
+import com.tino.selflearning.cache.CacheService;
 import com.tino.selflearning.entity.User;
-import com.tino.selflearning.service.CachingService;
 import com.tino.selflearning.service.UserService;
 import com.tino.selflearning.utils.JwtTokenUtil;
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
   private final UserService userService;
   private final JwtTokenUtil jwtTokenUtil;
-  private final CachingService cachingService;
+  private final CacheService cachingService;
 
   @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -47,7 +47,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     // Check if jwt is in blacklist or not
     String username = jwtTokenUtil.getClaim(token, "username");
-    if (cachingService.getValue(CachingService.BLACKLIST_JWT, username).isPresent()) {
+    if (cachingService.isTokenBlackedList(username, token)) {
       chain.doFilter(request, response);
       return;
     }

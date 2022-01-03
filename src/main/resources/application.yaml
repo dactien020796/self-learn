@@ -27,15 +27,6 @@ spring:
     schemas: ${datasource.schema}
     user: ${datasource.username}
     password: ${datasource.password}
-  cache:
-    type: redis
-    redis:
-      cache-null-values: false
-      time-to-live: 86400000 # 1 day
-  redis:
-#    host: localhost
-    host: dactien020796.redis.cache.windows.net
-    password: WJVGHUnTIdZ2rVC3rPBDAnH0iKYzcwSMBAzCaD9hWSs=
 
 jwt:
   secret: tino1703

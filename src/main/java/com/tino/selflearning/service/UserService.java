@@ -1,5 +1,6 @@
 package com.tino.selflearning.service;
 
+import com.tino.selflearning.cache.CacheService;
 import com.tino.selflearning.dto.UserDto;
 import com.tino.selflearning.entity.Role;
 import com.tino.selflearning.entity.User;
@@ -21,11 +22,11 @@ public class UserService implements UserDetailsService {
   private final UserRepository userRepository;
   private final UserMapper mapper;
   private final PasswordEncoder passwordEncoder;
-  private final CachingService cachingService;
+  private final CacheService cachingService;
   private final JwtTokenUtil jwtTokenUtil;
 
   public UserService(UserRepository userRepository, UserMapper mapper,
-                    @Lazy PasswordEncoder passwordEncoder, CachingService cachingService, JwtTokenUtil jwtTokenUtil) {
+                    @Lazy PasswordEncoder passwordEncoder, CacheService cachingService, JwtTokenUtil jwtTokenUtil) {
     this.userRepository = userRepository;
     this.mapper = mapper;
     this.passwordEncoder = passwordEncoder;

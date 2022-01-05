@@ -1,10 +1,10 @@
 package com.tino.selflearning.repository;
 
+import com.tino.selflearning.exception.CommonException;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
@@ -21,8 +21,7 @@ public interface BaseRepository<T, Id> extends JpaRepository<T, Id> {
   default <DTO> DTO findById(Id id, Function<T, DTO> mapper) {
     Optional<T> entity = findById(id);
     if (entity.isEmpty()) {
-      String message = String.format("No item with id = %s found", id);
-      throw new EntityNotFoundException(message);
+      throw CommonException.entityNotFound().with("id", id);
     }
     return mapper.apply(entity.get());
   }

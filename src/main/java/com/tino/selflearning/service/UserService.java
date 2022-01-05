@@ -4,6 +4,7 @@ import com.tino.selflearning.cache.CacheService;
 import com.tino.selflearning.dto.UserDto;
 import com.tino.selflearning.entity.Role;
 import com.tino.selflearning.entity.User;
+import com.tino.selflearning.exception.UserException;
 import com.tino.selflearning.mapper.UserMapper;
 import com.tino.selflearning.repository.UserRepository;
 import com.tino.selflearning.utils.JwtTokenUtil;
@@ -37,7 +38,7 @@ public class UserService implements UserDetailsService {
   @Override
   public User loadUserByUsername(String name) throws UsernameNotFoundException {
     return userRepository.findByUsername(name).orElseThrow(() -> {
-      throw new UsernameNotFoundException(String.format("User: %s not found", name));
+      throw UserException.userNotFound().with("username", name);
     });
   }
 
@@ -47,7 +48,7 @@ public class UserService implements UserDetailsService {
 
   public UserDto register(UserDto userDto) {
     if (userRepository.findByUsername(userDto.getUsername()).isPresent()) {
-      throw new EntityExistsException(String.format("User with username %s already exist", userDto.getUsername()));
+      throw UserException.userAlreadyExist().with("username", userDto.getUsername());
     }
     User user = mapper.mapToEntity(userDto);
     user.setPassword(passwordEncoder.encode(user.getPassword()));

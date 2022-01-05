@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.tino.selflearning.entity.User;
+import com.tino.selflearning.exception.UserException;
 import com.tino.selflearning.repository.UserRepository;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -37,6 +38,6 @@ public class UserServiceTest {
   @Test
   public void shouldThrowExceptionWhenNoUser() {
     when(repository.findByUsername(anyString())).thenReturn(Optional.empty());
-    assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername("helel"));
+    assertThrows(UserException.class, () -> userService.loadUserByUsername("helel"));
   }
 }

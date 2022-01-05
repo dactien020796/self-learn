@@ -8,6 +8,7 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.tino</groupId>
 	<artifactId>self-learning</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -22,6 +23,42 @@
 		<version.mapstruct>1.4.2.Final</version.mapstruct>
 		<version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>jfrog-maven-release</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-release-virtual</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>ignore</checksumPolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>jfrog-maven-snapshot</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-snapshot-virtual</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<!--Will be used for deployment, i.e. when running mvn deploy.-->
+	<distributionManagement>
+		<repository>
+			<id>jfrog-maven-release</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>jfrog-maven-snapshot</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>

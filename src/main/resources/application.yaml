@@ -1,14 +1,14 @@
-datasource:
-  url: jdbc:mysql://mysql-server-tienle0207.mysql.database.azure.com:3306
-  schema: db_example
-  username: dactien020796@mysql-server-tienle0207
-  password: Tino1703
-
 #datasource:
-#  url: jdbc:mysql://localhost:3306
+#  url: jdbc:mysql://mysql-server-tienle0207.mysql.database.azure.com:3306
 #  schema: db_example
-#  username: root
-#  password: root
+#  username: dactien020796@mysql-server-tienle0207
+#  password: Tino1703
+
+datasource:
+  url: jdbc:mysql://localhost:3306
+  schema: db_example
+  username: root
+  password: root
 
 spring:
   datasource:
@@ -27,6 +27,12 @@ spring:
     schemas: ${datasource.schema}
     user: ${datasource.username}
     password: ${datasource.password}
+  main:
+    allow-bean-definition-overriding: true
+  messages:
+    basename: i18n/messages
+    fallback-to-system-locale: true
+    use-code-as-default-message: true
 
 jwt:
   secret: tino1703

@@ -8,9 +8,10 @@
 		<version>2.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>com.tino</groupId>
 	<artifactId>self-learning</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>self-learning</name>
 	<description>Self learning project with Spring Boot</description>
 
@@ -21,7 +22,51 @@
 		<version.lombok>1.18.18</version.lombok>
 		<version.mapstruct>1.4.2.Final</version.mapstruct>
 		<version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>jfrog-maven-release</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-release-virtual</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+				<checksumPolicy>ignore</checksumPolicy>
+			</releases>
+		</repository>
+		<repository>
+			<id>jfrog-maven-snapshot</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-snapshot-virtual</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+	<!--Will be used for deployment, i.e. when running mvn deploy.-->
+	<distributionManagement>
+		<repository>
+			<id>jfrog-maven-release</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>jfrog-maven-snapshot</id>
+			<url>https://dactien020796.jfrog.io/artifactory/self-learn-maven-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<scm>
+		<connection>scm:git:https://github.com/dactien020796/self-learn.git</connection>
+		<developerConnection>scm:git:https://github.com/dactien020796/self-learn.git</developerConnection>
+		<url>https://github.com/dactien020796/self-learn</url>
+		<tag>@{project.version}</tag>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -114,25 +159,30 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
+				<!--<configuration>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-				</configuration>
+				</configuration>-->
 			</plugin>
 
 			<!--Mapstruct processor-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
+					<compilerArgument>-Xlint:all</compilerArgument>
+					<compilerArgument>-Xlint:-processing</compilerArgument>
+					<showWarnings>true</showWarnings>
+					<showDeprecation>true</showDeprecation>
+					<encoding>UTF-8</encoding>
 					<source>11</source>
 					<target>11</target>
-					<annotationProcessorPaths>
+					<!--<annotationProcessorPaths>
 						<path>
 							<groupId>org.mapstruct</groupId>
 							<artifactId>mapstruct-processor</artifactId>
@@ -148,7 +198,7 @@
 							<artifactId>lombok-mapstruct-binding</artifactId>
 							<version>${version.mapstruct-lombok}</version>
 						</path>
-					</annotationProcessorPaths>
+					</annotationProcessorPaths>-->
 				</configuration>
 			</plugin>
 		</plugins>

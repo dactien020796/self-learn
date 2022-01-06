@@ -6,6 +6,12 @@ name: Release flow and upload to ACR (Azure Container Registry)
 on:
   workflow_dispatch:
 
+env:
+  JFROG_USERNAME: ${{ secrets.JFROG_USERNAME }}
+  JFROG_PASSWORD: ${{ secrets.JFROG_PASSWORD }}
+  CI_USER: ${{ secrets.CI_USER }}
+  CI_USER_EMAIL: ${{ secrets.CI_USER_EMAIL }}
+
 jobs:
   build:
 
@@ -19,8 +25,20 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: maven
+      # Package and UTs
       - name: Build with Maven
-        run: mvn clean install
+        run: mvn clean package
+      - name: Use the user who pushed the branch as user for the release
+        run: |
+          git config user.email ${{ env.CI_USER }}
+          git config user.name ${{ env.CI_USER_EMAIL }}
+      # Build and push to JFrog
+      - name: Build and push release jar to JFrog Snapshot Repository
+        run: |
+          ./mvnw -s settings.xml -U \
+            -DskipTests=true \
+            -DuniqueVersion=false release:prepare release:perform
+      # Build and push docker image to ACR
       - name: Build & push Docker image
         uses: mr-smithers-excellent/docker-build-push@v5
         with:
